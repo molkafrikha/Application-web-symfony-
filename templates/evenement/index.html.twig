@@ -1,0 +1,137 @@
+{% extends "fixadmin.html.twig" %}
+{% block content %}
+
+    <div class="content-body" style="margin-left:-5px">
+        <center style="margin-top:20px;margin-bottom:20px;margin-right:20px"><h3 class="d-inline" style="color:#7571f9;">Liste des événements</h3>
+            <div class="btn-group float-right">
+                <a href="{{path('add_event')}}" class="btn btn-primary" style="color:white">Ajouter événement</a>
+            </div>
+            <div class="btn-group-vertical float-left">
+                <button id="sort-by-participants" onclick="trierParParticipants();checkDateFin()" class="btn btn-primary" type="button"><i class="mdi mdi-triangle"></i></button>
+                <button id="sort-by-participants" onclick="trierParParticipantsa();checkDateFin()" class="btn btn-primary" type="button"><i class="mdi mdi-triangle"></i></button>
+            </div>
+        </center>
+        <div class="row" style="margin-bottom:20px">
+
+            {% for c in events %}
+            <div class="col-md-6 col-lg-3" style="margin-bottom: 20px">
+                <div class="card" style="margin-left: 20px;margin-right: 20px;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ c.titre }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ c.lieu }}</h6>
+                        <p class="card-text">{{ c.description }}</p>
+                        <p class="card-text d-inline"><small class="text-muted">Nombre de participants :{{ c.nbparticipants }}</small><br>
+                        <p class="card-text d-inline"><small class="text-muted">Date d'événement :{{ c.date.format('Y-m-d') }}</small></p><br>
+                        <p class="card-text d-inline" id="datefin"><small class="text-muted">Date fin d'événement :{{ c.datefin.format('Y-m-d') }}</small></p>
+                        <br><br><a href='{{path('detail_event',{'id':c.id})}}' class="btn mb-1 btn-info float-left" style="color:white;"><i class="mdi mdi-information"></i><span> Détails</span></a>
+                        <br><br><a href='{{path('modif_evenement',{'id':c.id})}}' class="btn mb-1 btn-warning" style="color:white;"><i class="mdi mdi-pencil"></i><span> Modifier</span></a>
+                                <a href='{{path('delete_evenement',{'id':c.id})}}' class="btn mb-1 btn-danger" style="color:white;"><i class="mdi mdi-delete"></i><span> Supprimer</span></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(window).on('load', function() {
+            checkDateFin();
+        });
+        function checkDateFin() {
+            $(".card").each(function() {
+                var dateFinStr = $(this).find("#datefin").text().trim();
+                var regex = /\d{4}-\d{2}-\d{2}/; // expression régulière pour chercher la date au format yyyy-mm-dd
+                var dateFin1 = new Date(regex.exec(dateFinStr)[0]);
+                var dateFin = new Date(dateFinStr);
+                var today = new Date();
+                var yyyy = today.getFullYear();
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var dd = String(today.getDate()).padStart(2, '0');
+                var todayFormatted = yyyy + '-' + mm + '-' + dd;
+                console.log(dateFin1, today);
+                console.log(today > dateFin1);
+                if (today > dateFin1) {
+                    $(this).find(".btn-warning").remove();
+                    $(this).find(".card-body").css("background-color", "#cddaff");
+                    $(this).find(".card-body .p").css("color", "white");
+                }
+            });
+        }
+
+        function trierParParticipants() {
+
+            $.ajax({
+                url: "/trievent",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+
+                    var events = JSON.parse(data);
+                    var eventsHtml = "";
+                    for (var i = 0; i < events.length; i++) {
+                        var s =events[i];
+                        var dated = new Date(s.date).toISOString().substring(0, 10);
+                        var datef = new Date(s.datefin).toISOString().substring(0, 10);
+                        console.log(s);
+                        eventsHtml += "<div class=\'col-md-6 col-lg-3\' style=\'margin-bottom: 20px\'>" +
+                            "<div class=\'card\' style=\'margin-left: 20px;margin-right: 20px;\'>" +
+                            "<div class=\'card-body\'><h5 class=\'card-title\'>" + s.titre + "" +
+                            "</h5><h6 class=\'card-subtitle mb-2 text-muted\'>" + s.lieu + "" +
+                            "</h6><p class=\'card-text\'>" + s.description + "" +
+                            "</p><p class=\'card-text d-inline\'><small class=\'text-muted\'>Nombre de participants :" + s.nbparticipants + "" +
+                            "</small><br><p class=\'card-text d-inline\'><small class=\'text-muted\'>Date d'événement :" + dated + "" +
+                            "</small></p><br><p class=\'card-text d-inline\' id=\'datefin\'><small class=\'text-muted\'>Date fin d'événement :" + datef + "" +
+                            "</small></p><br><br><a href=\'#\' class=\'btn mb-1 btn-info float-left\' style=\'color:white;width:150px\'><i class=\'mdi mdi-information\'></i><span> Détails</span></a>" +
+                            "<br><br><a href=\'#\' class=\'btn mb-1 btn-warning\' style=\'color:white;width:150px\'><i class=\'mdi mdi-pencil\'></i><span> Modifier</span></a>" +
+                            "<a  class='btn mb-1 btn-danger' style='color:white;width:150px'><i class='mdi mdi-delete'></i><span> Supprimer</span></a></div></div></div>";
+                    }
+                    $(".row").html(eventsHtml);
+                    checkDateFin();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+
+        }
+
+        function trierParParticipantsa() {
+
+            $.ajax({
+                url: "/trieventa",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+
+                    var events = JSON.parse(data);
+                    var eventsHtml = "";
+                    for (var i = 0; i < events.length; i++) {
+                        var s =events[i];
+                        var dated = new Date(s.date).toISOString().substring(0, 10);
+                        var datef = new Date(s.datefin).toISOString().substring(0, 10);
+                        console.log(s);
+                        eventsHtml += "<div class=\'col-md-6 col-lg-3\' style=\'margin-bottom: 20px\'>" +
+                            "<div class=\'card\' style=\'margin-left: 20px;margin-right: 20px;\'>" +
+                            "<div class=\'card-body\'><h5 class=\'card-title\'>" + s.titre + "" +
+                            "</h5><h6 class=\'card-subtitle mb-2 text-muted\'>" + s.lieu + "" +
+                            "</h6><p class=\'card-text\'>" + s.description + "" +
+                            "</p><p class=\'card-text d-inline\'><small class=\'text-muted\'>Nombre de participants :" + s.nbparticipants + "" +
+                            "</small><br><p class=\'card-text d-inline\'><small class=\'text-muted\'>Date d'événement :" + dated + "" +
+                            "</small></p><br><p class=\'card-text d-inline\' id=\'datefin\'><small class=\'text-muted\'>Date fin d'événement :" + datef + "" +
+                            "</small></p><br><br><a href=\'#\' class=\'btn mb-1 btn-info float-left\' style=\'color:white;\'><i class=\'mdi mdi-information\'></i><span> Détails</span></a>" +
+                            "<br><br><a href=\'#\' class=\'btn mb-1 btn-warning\' style=\'color:white;\'><i class=\'mdi mdi-pencil\'></i><span> Modifier</span></a>" +
+                            "<a  class='btn mb-1 btn-danger' style='color:white;'><i class='mdi mdi-delete'></i><span> Supprimer</span></a></div></div></div>";
+                    }
+                    $(".row").html(eventsHtml);
+                    checkDateFin();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        }
+    </script>
+
+
+{% endblock %}

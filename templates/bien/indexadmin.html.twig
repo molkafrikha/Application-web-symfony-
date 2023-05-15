@@ -1,0 +1,50 @@
+{% extends 'fixadmin.html.twig' %}
+
+{% block content %}
+
+
+    <div class="content-body" style="margin-left:-5px">
+        <center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Liste des offres de transport du bien
+            </h3></center>
+
+        <div class="card" style="margin:20px">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table header-border">
+                        <thead>
+                        <tr>
+                            <th scope="col">Lieu depart</th>
+                            <th scope="col">Lieu arriver</th>
+                            <th scope="col">Date depart</th>
+                            <th scope="col">telephone</th>
+                            <th scope="col">Demandeur</th>
+                            <th scope="col">Actions </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for o in offres %}
+
+
+
+                            <tr>
+
+                                <td>{{ o.lieud }}</td>
+                                <td>{{ o.lieua }}</td>
+                                <td>{{ o.dated.format('Y-m-d') }}</td>
+                                <td>{{ o.num }}</td>
+                                <td>{{ o.idUser.nom }}</td>
+                                <td>
+                                    <a class="btn btn-primary" style="margin-left:5px" href="{{path('app_bien_delete1',{'id':o.id})}}"><i class="fa fa-close color-danger"></i></a>
+                                    <a class="btn btn-primary" style="margin-left:5px" href="{{path('app_bien_show1',{'id':o.id})}}"><i class="fa fa-info color-danger"></i></a>
+                                       </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

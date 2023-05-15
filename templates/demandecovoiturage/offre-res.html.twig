@@ -1,0 +1,20 @@
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Datereservation</th>
+                <th>Départ</th>
+                <th>Arrivé</th>
+                <th>Nbplace</th>
+            </tr>
+        </thead>
+        <tbody id="tb">
+        {% for o in offres %}
+            <tr name="ff">
+                <td>{{ loop.index0 }}</td>
+                <td>{{ o.dated ? o.dated|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ o.lieud }}</td>
+                <td>{{ o.lieua }}</td>
+                <td>{{ o.nbplace }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>

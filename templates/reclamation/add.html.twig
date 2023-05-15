@@ -1,0 +1,74 @@
+{% extends "fix.html.twig" %}
+{% block content %}
+    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+    <div class="container-fluid">
+        <center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Ajouter une réclamation</h3></center>
+        <div class="row justify-content-center" style="margin-left:150px;margin-right:150px">
+            <div class="col-lg-12" style="margin-bottom: 50px">
+                <div class="card" >
+                    <div class="card-body">
+                        <div class="form-validation">
+                            <form class="form-valide" style="">
+                                <div class="form-group row">
+
+                                    <label class="col-lg-4 col-form-label" >{{ form_label(form.intitule) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.intitule, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.intitule) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+
+                                    <label class="col-lg-4 col-form-label" >{{ form_label(form.contenu) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.contenu) }}
+                                    </div>
+
+                                    <label style="margin-top:20px" class="col-lg-4 col-form-label" >{{ form_label(form.iduser) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div  class="col-lg-6" style="margin-top:20px">
+                                        {{ form_widget(form.iduser, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+
+                                    <div class="col-lg-6" style="margin-top:20px">
+                                        <label class="col-lg-4 col-form-label">{{ form_label(form.image) }}<span class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_errors(form.image) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6" style="margin-top:-5px">
+                                     <label style="margin-top:20px" class="col-lg-4 col-form-label">{{ form_label(form.date) }}<span class="text-danger">*</span></label>
+                                   <div class="col-lg-6">
+                                     {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                                     {{ form_errors(form.date) }}
+                                    </div>
+                                </div>
+                                    
+                                </div>
+                               
+                                {{ form_rest(form) }}
+                                <div class="form-group row">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{ form_end(form) }}
+    {% endblock %}

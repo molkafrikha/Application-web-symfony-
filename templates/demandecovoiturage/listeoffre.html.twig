@@ -1,0 +1,54 @@
+
+
+{% extends 'fix.html.twig' %}
+
+{% block content %}
+
+
+<div class="content-body" style="margin-left:-5px">
+       
+
+                        <div class="card" style="margin:20px">
+                            <div class="card-body">
+                                <h4 class="card-title">Basic Table</h4>
+                                <div class="table-responsive">
+                                    <table class="table header-border">
+                                        <thead>
+                                            <tr>
+                                                
+                                               
+                                                <th scope="col">Lieu depart</th>
+                                                <th scope="col">Lieu arriver</th>
+                                               
+                                                <th scope="col">Places</th>
+                                               
+                                                <th scope="col">Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+
+
+                                            
+                                            <tr>
+                                                
+                                                
+                                                <td>soliman</td>
+                                                <td>ariana</td>
+                                                <td>2</td>
+                                               
+                                                <td>
+                                                    <a class="btn btn-primary" style="margin-left:5px" href="{{path('app_demandecovoiturage_new')}}"><i class="fa fa-info color-danger"></i></a>
+                                                  
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+{% endblock %}

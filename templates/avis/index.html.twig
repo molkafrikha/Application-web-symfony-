@@ -1,0 +1,76 @@
+{% extends 'fix.html.twig' %}
+
+{% block content %}
+    
+    <div class="content-body" style="margin-left:-5px">
+        <center style="margin-top:20px;margin-bottom:20px;margin-left:180px"><h1 class="d-inline" style="color:#7571f9;">Liste des avis
+                <a href='{{path('add_avis')}}' class="btn mb-1 btn-info float-right" style="margin-right: 20px"><i class="mdi mdi-plus"></i><span> Ajouter un avis</span></a>
+            </h1></center>
+            <center>
+             <div>
+              <p>Nombre total des avis: {{ nombreAvis }}</p></div>  
+            
+            <div  style=" width:300px;">
+                <form method="get" action="{{ path('search_avis') }}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="query" placeholder="Rechercher un avis">
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </div>
+              </form>
+    
+           </div>
+
+           <div class="col-sm-4" style=" width:350px; margin-top:20px;">
+              <form action="{{ path('tri_commentaire') }}" method="get" class="form-group">
+              <select name="sort" class="form-control" onchange="this.form.submit()">
+                <option value="asc">Tri par ordre alphabétique ascendant</option>
+                <option value="desc">Tri par ordre alphabétique descendant</option>
+              </select>
+              </form>
+            </div>
+
+           </center>
+            
+
+     <div class="col-lg-6" style="margin-left:200px">
+                        <div class="card" style="margin-top:40px;margin-bottom:20px;margin-left:70px;margin-right:-300px" >
+                            <div class="card-body" >
+                                
+                                <div class="table-responsive" >
+                                
+                                    <table class="table table-striped">
+                                    {{ knp_pagination_render(pagination) }}
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>COMMENTAIRE</th>
+                                                <th>nom d'utilisateur</th> 
+                                                <th>MARQUE </th> 
+                                                <th>Action</th>                                         
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                         {% for a in pagination %}
+                                            <tr>
+                                                <td>{{ a.id }}</td>
+                                                <td class="card-text">{{ a.commenraire|slice(0, 50) ~ (a.commenraire|length > 50 ? '...' : '') }}</td>
+                                                <td class="card-text">{{ a.idUser.nom }} </td>
+                                                <td class="card-text">{{ a.id_offrecov.marque }}</td>
+
+                                                <td>
+                                                   <a href='{{path('detail_avis' ,{'id':a.id})}}'data-toggle="tooltip" data-placement="top" title="detail"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i></a>
+                                                   <a href='{{path('modifier_Avis' ,{'id':a.id})}}' data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i></a>
+                                                   <a href='{{path('delete_avis' ,{'id':a.id})}}' onclick="return confirm('Voulez-vous vraiment supprimer cet avis ?')" data-toggle="tooltip" data-placement="top" title="Supprimer">
+                                                   <i class="fa fa-close color-danger"></i></a>
+                                                </td>                                                          
+                                            </tr>
+                                         {% endfor %}          
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    
+{% endblock %}

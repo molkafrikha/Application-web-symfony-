@@ -1,0 +1,43 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    dossier_images: '/path/to/images/folder'
+
+services:
+    # default configuration for services in *this* file
+    App\EventSubscriber\CalendarSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
+    App\Service\Mailer:
+        arguments:
+            $fromEmail: '%env(FROM_EMAIL)%'
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    App\Security\CustomAccessDeniedHandler:
+        arguments: ['@twig']
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    pyrrah.openweathermap.client:
+        class: Pyrrah\OpenWeatherMapBundle\Services\Client
+        arguments:
+            $apiKey: '5b491eb9b69dd529d5cb765278c52609'
+
+    Pyrrah\OpenWeatherMapBundle\Services\Client:
+        alias: pyrrah.openweathermap.client

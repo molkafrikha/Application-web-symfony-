@@ -1,0 +1,37 @@
+{% extends 'fix.html.twig' %}
+
+
+{% block content %}
+    <h1>Bien</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ bien.id }}</td>
+            </tr>
+            <tr>
+                <th>Lieud</th>
+                <td>{{ bien.lieud }}</td>
+            </tr>
+            <tr>
+                <th>Lieua</th>
+                <td>{{ bien.lieua }}</td>
+            </tr>
+            <tr>
+                <th>Dated</th>
+                <td>{{ bien.dated ? bien.dated|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Num</th>
+                <td>{{ bien.num }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bien_index') }}">back to list</a>
+
+    <a href="{{ path('app_bien_edit', {'id': bien.id}) }}">edit</a>
+
+    {{ include('bien/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des voitures</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #6E2EBB;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+    </style>
+</head>
+<body>
+<header>
+
+    <h1>Liste des voitures</h1>
+</header>
+
+<table>
+    <thead>
+    <tr>
+        <th>matricule</th>
+        <th>puissance</th>
+        <th>kilometrage</th>
+        <th>nombre de place</th>
+        <th>date derniere assurance</th>
+        <th>date derniere vidange</th>
+        <th>date couleur</th>
+        <th>date marque</th>
+        <th> agence d'assurance</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for voiture in voitures %}
+        <tr>
+            <td>{{ voiture.matricule }}</td>
+            <td>{{ voiture.puissance }}
+            </td>
+            <td>{{ voiture.kilometrage }}</td>
+            <td>{{ voiture.nbplaces }}</td>
+            <td>{{ voiture.dateAssurance ? voiture.dateAssurance|date('Y-m-d H:i:s') : '' }}</td>
+            <td>{{ voiture.dateDVidange ? voiture.dateDVidange|date('Y-m-d H:i:s') : '' }}</td>
+            <td>{{ voiture.color }}</td>
+            <td>{{ voiture.marque }}</td>
+            <td>{{ voiture.idagence.nom }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

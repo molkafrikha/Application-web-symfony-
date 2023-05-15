@@ -1,0 +1,30 @@
+{% extends 'fixadmin.html.twig' %}
+
+{% block title %}Sondage{% endblock %}
+
+{% block body %}
+    <h1>Sondage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>SondageId</th>
+                <td>{{ sondage.sondageId }}</td>
+            </tr>
+            <tr>
+                <th>Sujet</th>
+                <td>{{ sondage.sujet }}</td>
+            </tr>
+            <tr>
+                <th>Catégorie</th>
+                <td>{{ sondage.categorie }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_sondage_index') }}">back to list</a>
+
+    <a href="{{ path('app_sondage_edit', {'sondageId': sondage.sondageId}) }}">edit</a>
+
+
+{% endblock %}

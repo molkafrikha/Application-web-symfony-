@@ -1,0 +1,136 @@
+<<head>
+    {% block head%}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Fithnitek</title>
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/b.png')}}">
+        <!-- Pignose Calender -->
+        <link href="{{asset('./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet')}}">
+        <!-- Chartist -->
+        <link rel="stylesheet" href="{{asset('./plugins/chartist/css/chartist.min.css')}}">
+        <link rel="stylesheet" href="{{asset('./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css')}}">
+        <!-- Custom Stylesheet -->
+        <link href="{{asset('./plugins/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/style.css')}}" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('./plugins/bootstrap-datepicker/bootstrap-datepicker.min.css')}}">
+        <!-- Daterange picker plugins css -->
+        <link rel="stylesheet" href="{{asset('./plugins/timepicker/bootstrap-timepicker.min.css')}}">
+        <link href="{{asset('./plugins/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+        <link href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css')}}" rel="stylesheet"/>
+    {% endblock %}
+</head>
+<body>
+{% block body%}
+<div id="main-wrapper">
+    <div class="nav-header">
+        <a href="">
+            <img src="{{asset('images/a.png')}}" width="125px">
+        </a>
+    </div>
+    <div class="header">
+        <div class="header-content clearfix" style="padding-top:25px">
+            <div class="header-left">
+                <ul class="clearfix" style=" display: inline;">
+                    <li style="display: inline;margin-right:15px"><a href='{{path('app_evenement')}}'><i class="mdi mdi-calendar-check"></i> <span>Evenements</span></a></li>
+                    <li style="display: inline;margin-right:15px"><a href='{{path('app_sponsor')}}'><i class="mdi mdi-check"></i> <span>Sponsors</span></a></li>
+                    <li style="display: inline;margin-right:15px"><a href='{{path('app_voiture_index')}}'><i class="mdi mdi-car"></i> <span>Voitures</span></a></li>
+                    <li style="display: inline;margin-right:15px"><a href='{{path('app_maintenance_index')}}'><i class="mdi mdi-wrench"></i> <span>Maintenances</span></a></li>
+                    <li style="display: inline;margin-right:15px"><a href=""><i class="mdi mdi-bus"></i> <span>Covoiturages</span></a></li>
+                    <li style="display: inline;margin-right:15px"><a href=""><i class="mdi mdi-email"></i> <span>Réclamations</span></a></li>
+                    <li style="display: inline;margin-right:15px"><a href=""><i class="mdi mdi-pen"></i> <span>Questions</span></a></li>
+                    <li style="display: inline;margin-right:15px"><a href=""><i class="mdi mdi-settings"></i> <span>Paramètres</span></a></li>
+                    <li style="display: inline;"><a href=""><i class="icon-key"></i> <span>Logout</span></a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+    {% endblock %}
+
+    <!-- l code mteeekom lena -->
+
+        {% block content %}
+            <div class="container mt-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-center">Agence</h1>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+
+                            <tr>
+                                <th>nom</th>
+                                <td>{{ agence.nom }}</td>
+                            </tr>
+                            <tr>
+                                <th>lieu</th>
+                                <td>{{ agence.lieu }}</td>
+                            </tr>
+                            <tr>
+                                <th>numero de telephone </th>
+                                <td>{{ agence.num }}</td>
+                            </tr>
+                            <tr>
+                                <th>email </th>
+                                <td>{{ agence.email}}</td>
+                            </tr>
+
+
+
+
+                        </table>
+
+                        <br><br><a href='{{path('app_voiture_index')}}' class="btn mb-1 btn-warning" style="color:white"></i><span> retour a la liste </span></a>
+                    </div>
+                </div>
+            </div>
+
+
+        {% endblock %}
+</body>
+<footer>
+    {% block footer %}
+    <div class="footer" style="position: fixed;bottom: 0;width:100%;">
+        <div class="copyright">
+            <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">TechLeaders</a> 2023</p>
+        </div>
+    </div>
+    <div>
+        {% endblock %}
+        <script src="{{asset('./js/dashboard/dashboard-1.js')}}"></script>
+        <script src="{{asset('plugins/common/common.min.js')}}"></script>
+        <script src="{{asset('js/custom.min.js')}}"></script>
+        <script src="{{asset('js/settings.js')}}"></script>
+        <script src="{{asset('js/gleek.js')}}"></script>
+        <script src="{{asset('js/styleSwitcher.js')}}"></script>
+
+        <script src="{{asset('./plugins/chart.js/Chart.bundle.min.js')}}"></script>
+
+        <script src="{{asset('./plugins/circle-progress/circle-progress.min.js')}}"></script>
+
+        <script src="{{asset('./plugins/d3v3/index.js')}}"></script>
+        <script src="{{asset('./plugins/topojson/topojson.min.js')}}"></script>
+        <script src="{{asset('./plugins/datamaps/datamaps.world.min.js')}}"></script>
+
+        <script src="{{asset('./plugins/raphael/raphael.min.js')}}"></script>
+        <script src="{{asset('./plugins/morris/morris.min.js')}}"></script>
+        <script src="{{asset('./plugins/moment/moment.min.js')}}"></script>
+        <script src="{{asset('./plugins/pg-calendar/js/pignose.calendar.min.js')}}"></script>
+
+        <script src="{{asset('./plugins/chartist/js/chartist.min.js')}}"></script>
+        <script src="{{asset('./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js')}}"></script>
+        <script src="{{asset('./plugins/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+        <!-- Date range Plugin JavaScript -->
+        <script src="{{asset('./plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
+        <script src="{{asset('./plugins/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+
+        <script src="{{asset('./js/plugins-init/form-pickers-init.js')}}"></script>
+        <script src="{{asset('plugins/common/common.min.js')}}"></script>
+        <script src="{{asset('js/custom.min.js')}}"></script>
+        <script src="{{asset('js/settings.js')}}"></script>
+        <script src="{{asset('js/gleek.js')}}"></script>
+        <script src="{{asset('js/styleSwitcher.js')}}"></script>
+        <script src="{{asset('./plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script>

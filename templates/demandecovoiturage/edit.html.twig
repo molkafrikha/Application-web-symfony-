@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Demandecovoiturage{% endblock %}
+
+{% block body %}
+    <h1>Edit Demandecovoiturage</h1>
+
+    {{ include('demandecovoiturage/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_demandecovoiturage_index') }}">back to list</a>
+
+    {{ include('demandecovoiturage/_delete_form.html.twig') }}
+{% endblock %}

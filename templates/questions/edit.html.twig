@@ -1,0 +1,32 @@
+{% extends 'fixadmin.html.twig' %}
+
+{% block title %}Edit Questions{% endblock %}
+
+{% block content  %}
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+    <div class="container-fluid">
+        <center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Modifier Question </h3></center>
+        <div class="row justify-content-center">
+            <div class="col-lg-5" style="margin-bottom: 50px">
+                <div class="card" >
+                    <div class="card-body">
+                        <div class="form-validation">
+                            <form class="form-valide">
+                                <center>
+  
+   
+
+    {{ include('questions/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_questions_index', {'questionId': question.questionId, 'sondageId': sondageId}) }}">back to list</a>
+
+    {{ include('questions/_delete_form.html.twig') }}
+    </center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

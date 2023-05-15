@@ -1,0 +1,74 @@
+{% extends 'fixadmin.html.twig' %}
+
+{% block content %}
+
+ <div class="content-body" style="margin-left:-5px">
+        <center style="margin-top:20px;margin-bottom:20px;margin-left:30px"><h3 class="d-inline" style="color:#7571f9;">Liste des réclamations
+            
+            </h3>
+            <div>
+              <p>Nombre total de réclamations : {{ nombreReclamations }}</p></div>  
+            <div  style=" width:300px;">
+                <form method="get" action='{{ path('search_reclamation1') }}'>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="query" placeholder="Rechercher une reclamation">
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </div>
+              </form>
+
+              
+            </div>
+            </center>
+
+            <div class="col-sm-4" style=" width:350px; margin-top:20px;">
+              <form action="{{ path('tri_intitule1') }}" method="get" class="form-group">
+              <select name="sort" class="form-control" onchange="this.form.submit()">
+                <option value="asc">Tri par ordre alphabétique ascendant</option>
+                <option value="desc">Tri par ordre alphabétique descendant</option>
+              </select>
+              </form>
+            </div>
+
+     <div class="col-lg-6" style="margin-left:100px;margin-right:200px">
+                        <div class="card" style="margin-top:40px;margin-bottom:20px;margin-left:70px;margin-right:-300px" >
+                            <div class="card-body" >
+                                <div class="card-title">
+                                    <h4></h4>
+                                </div>
+                                <div class="table-responsive" >
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>INTITULE</th>
+                                                <th>CONTENU</th> 
+                                                <th>IMAGE</th>
+                                                <th>nom d'utilisateur </th> 
+                                                                                       
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                         {% for r in Reclamations %}
+                                            <tr>
+                                                <td>{{ r.id }}</td>
+                                                <td class="card-text">{{ r.intitule }}</td>
+                                                <td class="card-text">{{ r.contenu|slice(0, 50) ~ (r.contenu|length > 50 ? '...' : '') }} </td>
+                                                <td class="card-text">
+                                                  <img src="{{ asset(r.image) }}" width="120" height="100" alt="Votre image">
+                                                 </td>
+                                                <td class="card-text">{{ r.idUser.nom }} </td>
+                                            </tr>
+                                         {% endfor %}          
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+   
+    </div>
+{% endblock %}

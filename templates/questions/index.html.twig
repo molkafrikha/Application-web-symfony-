@@ -1,0 +1,60 @@
+
+{% extends 'fixadmin.html.twig' %}
+
+
+
+{% block content %}
+
+
+<div class="content-body" style="margin-left:-5px">
+        <center style="margin-top:20px;margin-bottom:10px"><h3 class="d-inline" style="color:#7571f9;">Liste des Questions
+                <a href="{{ path('app_questions_new', {sondageId: sondageId}) }}" class="btn mb-1 btn-info float-right" style="margin-right: 20px"><i class="mdi mdi-plus"></i><span> Ajouter une Question</span></a>
+            </h3></center>
+        <div class="card" style="margin-left: 20px;margin-right: 20px">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table header-border">
+                        <thead>
+
+
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Question</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for question in questions %}
+            <tr>
+                
+                <td>{{ question.question }}</td>
+                <td>{{ question.type }}</td>
+               <td>
+            <a href="{{ path('app_questions_edit',  {'questionId': question.questionId, 'sondageId': sondageId}) }}"><button type="button" class="btn btn-primary">modifier</button></a>
+
+            </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>  
+</div>   
+    
+   <div class="create"> <a href="{{ path('app_sondage_index') }}"><button type="button" class="btn btn-primary">page principale</button></a> </div>
+</div>    
+
+    
+{% endblock %}
+
+

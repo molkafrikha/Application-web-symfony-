@@ -1,0 +1,5 @@
+pyrrah_open_weather_map:
+    api_key: 5b491eb9b69dd529d5cb765278c52609
+    api_url: https://api.openweathermap.org/data/2.5/
+    units: metric
+    language: fr

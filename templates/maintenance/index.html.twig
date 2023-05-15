@@ -1,0 +1,85 @@
+{% extends 'fix.html.twig' %}
+
+{% block content %}
+
+<center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Liste des maintenances voiture
+        <a href='{{path('app_maintenance_new')}}' class="btn mb-1 btn-info float-right" style="margin-right: 20px"><i class="mdi mdi-plus"></i><span> Ajouter une maintenance</span></a>
+
+        <a href='{{path('app_maintenance_export')}}' class="btn mb-1 btn-info float-right" style="margin-right: 20px"><i class="fa fa-download color-warning"></i><span> exporter excel</span></a>
+    </h3></center>
+<div class="container-fluid">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <h4>Les maintenances</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+            <tr>
+
+
+                <th>Date derniere assurance</th>
+                <th>Date prochaine assurance</th>
+                <th>Date derniere vidange</th>
+                <th>Reste kilometrage</th>
+                <th>matricule</th>
+
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if flash is defined and flash != '' %}
+            <div class="alert alert-warning">{{ flash }}</div>
+        {% endif %}
+        {% for maintenance in maintenances %}
+            {% set dateProchaineAssurance = maintenance.datePAssurance|date('Y-m-d') %}
+            {% set today = "now"|date('Y-m-d') %}
+            <tr >
+
+                <td {% if dateProchaineAssurance == today %} style="background-color: #ffb9b9; "{% endif %}>{{ maintenance.dateDAssurance ? maintenance.dateDAssurance|date('Y-m-d H:i:s') : '' }}</td>
+                <td {% if dateProchaineAssurance == today %} style="background-color: #ffb9b9; "{% endif %}>{{ maintenance.datePAssurance ? maintenance.datePAssurance|date('Y-m-d ') : '' }}</td>
+                <td {% if dateProchaineAssurance == today %} style="background-color: #ffb9b9; "{% endif %}>{{ maintenance.dateDVidange ? maintenance.dateDVidange|date('Y-m-d H:i:s') : '' }}</td>
+                <td {% if dateProchaineAssurance == today %} style="background-color: #ffb9b9; "{% endif %}>{{ maintenance.restekilometre }}</td>
+                <td{% if dateProchaineAssurance == today %} style="background-color: #ffb9b9;"{% endif %}>
+                    {% if maintenance.idVoi is not null %}
+                        {{ maintenance.idVoi.matricule }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+        <span>
+            <a href="{{ path('app_maintenance_delete', {'id_maintenance': maintenance.id_maintenance}) }}" data-toggle="tooltip" data-placement="top" title="Supprimer">
+                <i class="fa fa-trash color-danger"></i>
+            </a>
+            <a href="{{ path('app_maintenance_show', {'id_maintenance': maintenance.id_maintenance}) }}" data-toggle="tooltip" data-placement="top" title="Détails">
+                <i class="fa fa-info color-danger"></i>
+            </a>
+        </span>
+                </td>
+            </tr>
+        {% endfor%}
+        {% for label, messages in app.flashes() %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demandecovoiturage{% endblock %}
+
+{% block body %}
+    <h1>Demandecovoiturage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demandecovoiturage.id }}</td>
+            </tr>
+            <tr>
+                <th>Datereservation</th>
+                <td>{{ demandecovoiturage.datereservation ? demandecovoiturage.datereservation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nbplace</th>
+                <td>{{ demandecovoiturage.nbplace }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demandecovoiturage_index') }}">back to list</a>
+
+    <a href="{{ path('app_demandecovoiturage_edit', {'id': demandecovoiturage.id}) }}">edit</a>
+
+    {{ include('demandecovoiturage/_delete_form.html.twig') }}
+{% endblock %}

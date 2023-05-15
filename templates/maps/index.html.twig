@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OpenStreetMap</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+    <!-- CSS -->
+    <style>
+        #maCarte{
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+<input type="hidden" value="48.852969" id="lat">
+<input type="hidden" value="2.349903" id="lon">
+<div id="maCarte"></div>
+
+<!-- Fichiers Javascript -->
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+<script>
+    let lat=document.getElementById("lat").value;
+
+    let lon=document.getElementById("lon").value;
+
+    var villes = {
+        "Sport AREA Makthar": { "lat": 35.85593824960535, "lon": 9.2036085494646 },
+        "Sport AREA Ariana": { "lat": 36.857595583562954, "lon": 10.141356816416703},
+        "Sport AREA Beja": { "lat":  36.71993183144849, "lon": 9.187346709331878},
+        "Sport AREA Esprit": { "lat":  36.870828812714606, "lon": 10.23032831215326}
+    };
+    var tableauMarqueurs = [];
+
+    // On initialise la carte
+    var carte = L.map('maCarte').setView([lat, lon], 13);
+
+    // On charge les "tuiles"
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        // Il est toujours bien de laisser le lien vers la source des données
+        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM Tunis</a>',
+        minZoom: 1,
+        maxZoom: 20
+    }).addTo(carte);
+
+    var marqueurs = L.markerClusterGroup();
+
+    // On personnalise le marqueur
+    var icone = L.icon({
+        iconUrl: "images/icone.png",
+        iconSize: [50, 50],
+        iconAnchor: [25, 50],
+        popupAnchor: [0, -50],
+        attribution: ''
+
+    })
+
+    // On parcourt les différentes villes
+    for(ville in villes){
+        // On crée le marqueur et on lui attribue une popup
+        var marqueur = L.marker([villes[ville].lat, villes[ville].lon], {icon: icone}); //.addTo(carte); Inutile lors de l'utilisation des clusters
+        marqueur.bindPopup("<p>"+ville+"</p></a>");
+        marqueurs.addLayer(marqueur); // On ajoute le marqueur au groupe
+
+        // On ajoute le marqueur au tableau
+        tableauMarqueurs.push(marqueur);
+    }
+    // On regroupe les marqueurs dans un groupe Leaflet
+    var groupe = new L.featureGroup(tableauMarqueurs);
+
+    // On adapte le zoom au groupe
+    carte.fitBounds(groupe.getBounds().pad(0.5));
+
+    carte.addLayer(marqueurs);
+</script>
+</body>
+</html>

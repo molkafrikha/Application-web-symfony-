@@ -1,0 +1,143 @@
+{% extends 'fix.html.twig' %}
+
+{% block title %}Demandecovoiturage index{% endblock %}
+
+{% block content %}
+<style>
+    .btn-xd{
+        width: 100px; height: 40px; color: white;background-color: #506CDA; border-radius: 8px; cursor:pointer; text-align: center;
+        padding: 10px; margin-bottom: 10px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+    $(document).ready(() => {
+        searchDocument();
+        refresh();
+        reserver();
+    });
+    function searchDocument(){
+        document.getElementById("search-btn").addEventListener("click", () => {
+                let lieud = document.getElementById("lieud").value;
+                let lieua = document.getElementById("lieua").value;
+                //let dated = document.getElementById("dated").value;
+                //let nb = document.getElementById("nb-p").value;
+                $.ajax({
+                    type: 'POST',
+                    url: "/demandecovoiturage/search",
+                    data: {
+                        "lieud": document.getElementById("lieud").value,
+                        "lieua": document.getElementById("lieua").value,
+                    },
+                    success: function(response){
+                        $("#ttt").empty().html(response);
+                        //window.location.href = response;
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        console.log('error');
+                    }
+                });
+        });
+    }
+
+    function refresh(){
+        document.getElementById("refresh-btn").addEventListener("click", () => {
+           /* document.getElementsByName("ff").forEach((e) => {
+                e.style.display = "table-row"
+            });*/
+            window.location.href = '/demandecovoiturage/offre'
+        });
+    }
+
+    function reserver(){
+        document.getElementById("res-btn").addEventListener("click", () => {
+            console.log(document.getElementById("dated").value);
+            $.ajax({
+                    type: 'POST',
+                    url: "/demandecovoiturage/reserver",
+                    data: {
+                        "lieud": document.getElementById("lieud").value,
+                        "lieua": document.getElementById("lieua").value,
+                        "dated": document.getElementById("dated").value,
+                        "nb-p": document.getElementById("nb-p").value
+                    },
+                    success: function(response){
+                        window.location.href = response;
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        console.log('error');
+                    }
+                });
+        });
+    }
+</script>
+<div class="content-body" style="margin-left:-5px">
+        <center style="margin-top:20px;margin-bottom:10px"><h3 class="d-inline" style="color:#7571f9;">Réservation
+            </h3></center>
+        <div class="card" style="margin-left: 20px;margin-right: 20px">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table header-border">
+                        <thead>
+
+    
+    <div>
+        <input type="text" id="lieud">
+        <input type="text" id="lieua">
+        <input type="date" id="dated">
+        <select id="nb-p">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <div id="search-btn" class="btn-xd">
+            Search
+        </div>
+        <div id="refresh-btn" class="btn-xd">
+            Refresh
+        </div>
+    </div>
+ <table class="table" id="ttt">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Datereservation</th>
+                <th>Départ</th>
+                <th>Arrivé</th>
+                <th>Nbplace</th>
+            </tr>
+        </thead>
+        <tbody id="tb">
+        {% for o in offres %}
+            <tr name="ff">
+                <td>{{ loop.index0 }}</td>
+                <td>{{ o.dated ? o.dated|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ o.lieud }}</td>
+                <td>{{ o.lieua }}</td>
+                <td>{{ o.nbplace }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+    
+    <div class="btn-xd" id="res-btn">Réserver</a>
+
+
+      
+ </div>
+
+
+</div> 
+     </div>
+      </div>
+       </div>
+
+</table> 
+     
+           {% endblock %}

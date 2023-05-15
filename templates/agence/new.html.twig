@@ -1,0 +1,74 @@
+{% extends "fixadmin.html.twig" %}
+{% block content %}
+    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+    <div class="container-fluid">
+        <center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Ajouter une agence </h3></center>
+        <div class="row justify-content-center">
+            <div class="col-lg-12" style="margin-bottom: 50px">
+                <div class="card" >
+                    <div class="card-body">
+                        <div class="form-validation">
+                            <form class="form-valide">
+                                <div class="form-group row">
+
+                                    <label class="col-lg-4 col-form-label" >{{ form_label(form.nom) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                        <small class="alert-danger">{{ form_errors(form.nom) }}</small>
+                                    </div>
+                                </div>
+
+                               <div class="form-group row">
+
+                                    <label class="col-lg-4 col-form-label" >{{ form_label(form.lieu) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
+                                        <small class="alert-danger">{{ form_errors(form.lieu) }}</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+
+                                    <label class="col-lg-4 col-form-label" >{{ form_label(form.num) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.num, {'attr': {'class': 'form-control'}}) }}
+                                        <small class="alert-danger">{{ form_errors(form.num) }}</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+
+                                    <label class="col-lg-4 col-form-label" >{{ form_label(form.email) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                                        <small class="alert-danger">{{ form_errors(form.email) }}</small>
+                                    </div>
+                                </div>
+                                
+                               
+
+                                {{ form_rest(form) }}
+                                <div class="form-group row">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{ form_end(form) }}{% endblock %}

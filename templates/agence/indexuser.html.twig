@@ -1,0 +1,29 @@
+{% extends "fix.html.twig" %}
+{% block content %}
+
+    <div class="content-body" style="margin-left:-5px">
+        <center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Liste des agences d'assurance
+
+            </h3></center>
+        <div class="row" style="margin-bottom:20px">
+
+            {% for a in agences %}
+                <div class="col-md-6 col-lg-3" style="margin-bottom: 20px">
+                    <div class="card" style="margin-left: 20px;margin-right: 20px;">
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ a.nom }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ a.lieu }}</h6>
+                            <p class="icon-phone menu-icon"> {{ a.num }}</p>
+                            <p  class="icon-envelope menu-icon">  {{ a.email }}</p>
+
+                            <br><br><a href='{{path('app_agence_show',{'id':a.id})}}' class="btn mb-1 btn-info float-left" ><i class="mdi mdi-information"></i><span> Détails</span></a>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

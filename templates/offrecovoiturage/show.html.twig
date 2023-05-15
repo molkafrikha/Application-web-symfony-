@@ -1,0 +1,57 @@
+{% extends 'fix.html.twig' %}
+
+
+{% block content %}
+    <h1>Offrecovoiturage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ offrecovoiturage.id }}</td>
+            </tr>
+            <tr>
+                <th>Matricule</th>
+                <td>{{ offrecovoiturage.matricule }}</td>
+            </tr>
+            <tr>
+                <th>Marque</th>
+                <td>{{ offrecovoiturage.marque }}</td>
+            </tr>
+            <tr>
+                <th>Dated</th>
+                <td>{{ offrecovoiturage.dated ? offrecovoiturage.dated|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Lieud</th>
+                <td>{{ offrecovoiturage.lieud }}</td>
+            </tr>
+            <tr>
+                <th>Lieua</th>
+                <td>{{ offrecovoiturage.lieua }}</td>
+            </tr>
+            <tr>
+                <th>Dispo</th>
+                <td>{{ offrecovoiturage.dispo }}</td>
+            </tr>
+            <tr>
+                <th>Nbplace</th>
+                <td>{{ offrecovoiturage.nbplace }}</td>
+            </tr>
+            <tr>
+                <th>Numtel</th>
+                <td>{{ offrecovoiturage.numtel }}</td>
+            </tr>
+            <tr>
+                <th>Distance</th>
+                <td>{{ offrecovoiturage.distance }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_offrecovoiturage_index1') }}">back to list</a>
+
+
+
+    {{ include('offrecovoiturage/_delete_form.html.twig') }}
+{% endblock %}

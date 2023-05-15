@@ -1,0 +1,110 @@
+{% extends "fixadmin.html.twig" %}
+{% block content %}
+        <div class="container-fluid">
+                <center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Détails sur cet événement</h3></center>
+                <div class="row">
+                        <div class="col-12">
+                                <div class="card">
+                                        <div class="card-header">
+                                               <div class="float-left">{#  {% if weather %}
+                                                        {% for weatherItem in weather %}
+                                                                <p> {{ weatherItem.main }}</p>
+                                                                <p> {{ weatherItem.description }}</p>
+                                                                <img src="{{ asset('http://openweathermap.org/img/w/' ~ weatherItem.icon ~ '.png') }}" height="100px" width="100px">
+                                                        {% endfor %}
+                                                {% else %}
+                                                        <p>No weather information available.</p>
+                                                {% endif %}#}
+
+
+                                               </div>
+                                        </div>
+                                        <div class="card-body">
+
+                                                <h5 style="color: #76838f;">
+                                                        {% if weather_data.weather[0].icon is defined %}
+                                                                <img src="{{ 'https://openweathermap.org/img/w/' ~ weather_data.weather[0].icon ~ '.png' }}" alt="Weather Icon">
+                                                        {% endif %}
+
+                                                        <p>Température : {{ weather_data.main.temp  }} °C</p>
+
+                                                        {% if weather_data.wind.speed is defined %}
+                                                                <p>Vitesse de l'air : {{ weather_data.wind.speed }} m/s</p>
+                                                        {% endif %}
+
+                                                        <ul><li>L'événement : {{ events.titre }}</li><br>
+                                                                <li>Lieu : {{ events.lieu}}</li><br>
+                                                                <li> La date :{{ events.date.format('Y-m-d')}} </li><br>
+                                                                <li> La date :{{ events.datefin.format('Y-m-d')}} </li><br>
+                                                                <li> Le nombre des participants : {{ events.nbparticipants }}</li><br>
+                                                <li>Description :{{ events.description }} .</li> <br>
+                                                                <li id="somme"> .</li>
+                                                        </ul></h5>
+                                                <h4 class="card-title">Les sponsors de cet événement : </h4>
+                                                <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered zero-configuration">
+                                                                <thead>
+                                                                <tr>
+
+                                                                        <th>Nom Sponsor</th>
+                                                                        <th>E-mail</th>
+                                                                        <th>Date de signature</th>
+                                                                        <th>Adresse</th>
+                                                                        <th>Montant</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+        {% for c in sponsors %}
+                                                                <tr>
+
+                                                                        <td>{{ c.sponsor }}</td>
+                                                                        <td>{{ c.email }}</td>
+                                                                        <td>{{ c.dateSignature.format('Y-m-d') }}</td>
+                                                                        <td>{{ c.adresse }}</td>
+                                                                        <td>{{ c.montant }} </td>
+                                                                </tr>
+        {% endfor %}
+                                                                </tbody>
+                                                        </table>
+                                                </div><br><br>
+                                                <h3>Affecter un sponsor à {{ events.titre }}</h3><br><br>
+                                                {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+                                                <div class="form-group row">
+                                                        <label class="col-lg-4 col-form-label" for="val-suggestions">{{ form_label(form.id_sponsor) }}  <span class="text-danger">*</span>
+                                                        </label>
+                                                        <div class="col-lg-6">
+                                                                {{ form_widget(form.id_sponsor, {'attr': {'class': 'form-control'}}) }}
+
+                                                        </div>
+                                                </div>
+
+
+                                                {{ form_rest(form) }}
+                                                <div class="form-group row">
+                                                        <div class="col-lg-8 ml-auto">
+                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                </div>
+                                                {{ form_end(form) }}
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+<br>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function() {
+        var somme = 0;
+        $('.table tbody tr').each(function() {
+        var dis = parseFloat($(this).find('td:eq(4)').text());
+        somme += dis * 0.1;
+        });
+        console.log(somme);
+        $('#somme').text('La contribution des sponsors est : '+somme+' DT');
+        if (somme > 1000) {
+        $('.btn-primary').prop('disabled', true);
+        }
+        });</script>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+
+<!--<img src="{{asset('images/b.png')}}" width="100px" length="100px">-->
+<center><h1 style="color:#7571f9">Liste des sponsors</h1></center>
+<br> <br>
+<table border="1" style="border-color: #7C277D">
+    <thead>
+    <tr style="color:purple">
+        <th>Nom du sponsor</th>
+        <th>Email</th>
+        <th>Adresse</th>
+        <th>Date de signature</th>
+        <th>Montant</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for s in sponsors %}
+        <tr>
+            <td>{{ s.sponsor }}</td>
+            <td>{{ s.email }}</td>
+            <td>{{ s.adresse }}</td>
+            <td>{{ s.dateSignature.format('Y-m-d') }}</td>
+            <td>{{ s.montant }} DT</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br><br> <br><br><br><br>
+<h3>Fi Thnitek</h3>
+<h4>Equipe TechLeaders </h4>

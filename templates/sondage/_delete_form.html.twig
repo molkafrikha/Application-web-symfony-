@@ -1,0 +1,25 @@
+
+
+{% extends 'fixadmin.html.twig' %}
+
+{% block title %}Edit Sondage{% endblock %}
+
+{% block body %}
+    <div class="content-body" style="margin-left:-5px">
+
+<div class="row justify-content-center">
+            <div class="col-lg-12" style="margin-bottom: 50px">
+                <div class="card" >
+
+                            <form method="post" action="{{ path('app_sondage_delete', {'sondageId': sondage.sondageId}) }}
+                            " >
+                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ sondage.sondageId) }}">
+                      </div> 
+                      </div> 
+
+
+           
+    <button >supprimer sondage </button>
+  
+{% endblock %}
+    

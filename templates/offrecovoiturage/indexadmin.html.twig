@@ -1,0 +1,73 @@
+{% extends 'fixadmin.html.twig' %}
+
+{% block content %}
+
+
+<div class="content-body" style="margin-left:-5px">
+        <center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Liste des offres de Covoiturages
+            </h3></center>
+
+                        <div class="card" style="margin:20px">
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table class="table header-border">
+                                        <thead>
+                                            <tr>
+                                                
+                                                <th scope="col">Matricule</th>
+                                                <th scope="col">Marque</th>
+                                                <th scope="col">Date depart</th>
+                                                <th scope="col">Lieu depart</th>
+                                                <th scope="col">Lieu arriver</th>
+                                                <th scope="col">Disponible</th>
+                                                <th scope="col">Places</th>
+                                                <th scope="col">Telephone</th>
+                                                <th scope="col">Distance</th>
+                                                <th scope="col">Offreur</th>
+                                                <th scope="col">Actions </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for o in offres %}
+
+
+                                            
+                                            <tr>
+                                                
+                                                <td>{{ o.matricule }}</td>
+                                                <td>{{ o.marque }}</td>
+                                                <td>{{ o.dateD.format('Y-m-d') }}</td>
+                                                <td>{{ o.lieuD }}</td>
+                                                <td>{{ o.lieuA }}</td>
+                                                <td>{{ o.dispo }}</td>
+                                                <td>{{ o.nbPlace }}</td>
+                                                <td>{{ o.numTel }}</td>
+                                                <td>{{ o.distance }}</td>
+                                                <td>{{ o.idUser.nom }}</td>
+                                                <td>
+                                                    <a class="btn btn-primary" style="margin-left:5px" href="{{path('app_offrecovoiturage_delete1',{'id':o.id})}}"><i class="fa fa-close color-danger"></i></a>
+                                                    <a class="btn btn-primary" style="margin-left:5px" href="{{path('app_offrecovoiturage_show1',{'id':o.id})}}"><i class="fa fa-info color-danger"></i></a>
+
+                                                    <a class="btn btn-primary" style="margin-left:5px" href="{{path('app_geolocalisation')}}">localisation</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+{% endblock %}
+{% block javascripts %}
+
+    <script type="text/javascript">
+        function openScript() {
+            window.open('{{ asset('C:/Users/Nadhem/symfony projects/pidevweb/PiDevFiThnitekWeb/geolocalisation.html') }}');
+        }
+    </script>
+
+{% endblock %}

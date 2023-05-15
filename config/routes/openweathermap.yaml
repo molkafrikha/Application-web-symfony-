@@ -1,0 +1,4 @@
+pyrrah_open_weather_map:
+  resource: "@PyrrahOpenWeatherMapBundle/Controller/"
+  type: annotation
+  prefix: /openweathermap/api

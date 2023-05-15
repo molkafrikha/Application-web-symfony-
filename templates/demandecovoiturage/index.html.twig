@@ -1,0 +1,29 @@
+{% extends 'fix.html.twig' %}
+
+{% block title %}Demandecovoiturage index{% endblock %}
+
+{% block content %}
+    <h1>Demande Covoiturage</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Datereservation</th>
+                <th>Départ</th>
+                <th>Arrivé</th>
+                <th>Nbplace</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for o in demandes %}
+            <tr>
+                <td>{{ loop.index0 }}</td>
+                <td>{{ o.dated ? o.dated|date('Y-m-d') : '' }}</td>
+                <td>{{ o.lieud }}</td>
+                <td>{{ o.lieua }}</td>
+                <td>{{ o.nbplace }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

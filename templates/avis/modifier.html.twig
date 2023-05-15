@@ -1,0 +1,56 @@
+{% extends "fix.html.twig" %}
+{% block content %}
+    {{ form_start(form) }}
+    <div class="container-fluid">
+        <center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Modifier un avis</h3></center>
+        <div class="row justify-content-center">
+            <div class="col-lg-12" style="margin-bottom: 50px">
+                <div class="card" >
+                    <div class="card-body">
+                        <div class="form-validation">
+                            <form class="form-valide">
+                                <div class="form-group row">
+
+                                    <label class="col-lg-4 col-form-label" >{{ form_label(form.commenraire) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.commenraire, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+
+                                    <label class="col-lg-4 col-form-label" >{{ form_label(form.iduser) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.iduser, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                <label style="margin-top:20px" class="col-lg-4 col-form-label" >{{ form_label(form.id_offrecov) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div  class="col-lg-6" style="margin-top:20px">
+                                        {{ form_widget(form.id_offrecov, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+ 
+                            
+                                {{ form_rest(form) }}
+                                <div class="form-group row">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="submit" class="btn btn-primary">Modifier</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{ form_end(form) }}{% endblock %}

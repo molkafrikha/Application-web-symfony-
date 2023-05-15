@@ -1,0 +1,41 @@
+{% extends 'fixadmin.html.twig' %}
+
+{% block content %}
+    <div class="content-body" style="margin-left:-5px">
+        <center style="margin-top:20px;margin-bottom:20px;margin-left:50px"><h3 class="d-inline" style="color:#7571f9;">Liste des avis
+            
+            </h3></center>
+
+     <div class="col-lg-6" style="margin-left:200px;margin-right:200px">
+                        <div class="card" style="margin-top:40px;margin-bottom:20px;margin-left:70px;margin-right:-300px" >
+                            <div class="card-body" >
+                                <div class="card-title">
+                                    <h4></h4>
+                                </div>
+                                <div class="table-responsive" >
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>COMMENTAIRE</th>
+                                                <th>nom d'utilisateur</th> 
+                                                <th>MARQUE </th>                                                                                      
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                         {% for a in Avis %}
+                                            <tr>
+                                                <td>{{ a.id }}</td>
+                                                <td class="card-text">{{ a.commenraire|slice(0, 50) ~ (a.commenraire|length > 50 ? '...' : '') }}</td>
+                                                <td class="card-text">{{ a.idUser.nom }} </td>
+                                                <td class="card-text">{{ a.id_offrecov.marque }}</td>         
+                                            </tr>
+                                         {% endfor %}          
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+{% endblock %}

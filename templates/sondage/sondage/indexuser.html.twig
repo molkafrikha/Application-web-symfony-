@@ -1,0 +1,48 @@
+{% extends "fix.html.twig" %}
+{% block content %}
+
+<div class="content-body" style="margin-left:-5px">
+        <center style="margin-top:20px;margin-bottom:10px"><h3 class="d-inline" style="color:#7571f9;">Liste des Sondages
+            </h3></center>
+        <div class="card" style="margin-left: 20px;margin-right: 20px">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table header-border">
+                        <thead>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Sujet</th>
+                <th>Catégorie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sondage in sondages %}
+            <tr>
+
+                <td>{{ sondage.sujet }}</td>
+                <td>{{ sondage.categorie }}</td>
+                <td>
+                    <a href="{{ path('app_r_ponses_new')}}"><button type="button" class="btn btn-primary">Répondre</button></a>
+                    
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>       
+   
+</div>    
+{% endblock %}
+
+    

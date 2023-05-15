@@ -1,0 +1,64 @@
+{% extends "fix.html.twig" %}
+{% block content %}
+
+    <center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Liste des voitures
+            <a href='{{path('app_voiture_new')}}' class="btn mb-1 btn-info float-right" style="margin-right: 20px"><i class="mdi mdi-plus"></i><span> Ajouter une voiture</span></a>
+            <a href='{{path('app_voiture_pdf')}}' class="btn mb-1 btn-info float-right" style="margin-right: 20px"><i class="fa fa-download color-warning"></i><span> exporter pdf</span></a>
+        </h3></center>
+    <div class="container-fluid">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h4>Les Voiture</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>matricule</th>
+                                <th>puissance</th>
+                                <th>kilometrage</th>
+                                <th>nombre de place</th>
+                                <th>date derniere assurance</th>
+                                <th>date derniere vidange</th>
+                                <th>date couleur</th>
+                                <th>date marque</th>
+                                <th> agence d'assurance</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for voiture in voitures %}
+                                <tr>
+
+                                    <td>{{ voiture.matricule }}</td>
+                                    <td>{{ voiture.puissance }}
+                                    </td>
+                                    <td>{{ voiture.kilometrage }}</td>
+                                    <td>{{ voiture.nbplaces }}</td>
+                                    <td>{{ voiture.dateAssurance ? voiture.dateAssurance|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td>{{ voiture.dateDVidange ? voiture.dateDVidange|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td>{{ voiture.color }}</td>
+                                    <td>{{ voiture.marque }}</td>
+                                    <td>{{ voiture.idagence.nom }}</td>
+                                    <td>
+                                                  <span><a href="{{ path('app_voiture_edit', {'id': voiture.id}) }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a>
+                                                  <a href="{{ path('app_voiture_delete', {'id': voiture.id}) }}" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="fa fa-trash color-danger"></i></a>
+                                                  <a href='{{path('app_voiture_show',{'id':voiture.id}) }}' data-toggle="tooltip" data-placement="top"  data-original-title="Détails"><i class="fa fa-info color-danger"></i></a></span>
+                                    </td>
+
+
+
+
+                                </tr>
+                            {% endfor%}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

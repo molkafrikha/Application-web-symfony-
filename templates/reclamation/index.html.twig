@@ -1,0 +1,88 @@
+{% extends 'fix.html.twig' %}
+
+{% block content %}
+            
+           <div class="content-body" style="margin-left:-5px">
+                <center style="margin-top:20px;margin-bottom:20px;margin-left:250px"><h1 class="d-inline" style="color:#7571f9;">Liste des réclamations
+                <a href='{{path('add_reclamation')}}' class="btn mb-1 btn-info float-right" style="margin-right: 20px"><i class="mdi mdi-plus"></i><span> Ajouter une réclamation</span></a>
+                </h1></center>
+            <center>
+             
+            <div>
+              <p>Nombre total de réclamations : {{ nombreReclamations }}</p></div>
+            <div  style=" width:300px;">
+                <form method="get" action='{{ path('search_reclamation') }}'>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="query" placeholder="Rechercher une reclamation">
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </div>
+              </form>
+
+              
+            </div>
+
+            <div class="col-sm-4" style=" width:350px; margin-top:20px">
+              <form action="{{ path('tri_intitule') }}" method="get" class="form-group">
+              <select name="sort" class="form-control" onchange="this.form.submit()">
+                <option value="asc">Tri par ordre alphabétique ascendant</option>
+                <option value="desc">Tri par ordre alphabétique descendant</option>
+              </select>
+              </form>
+            </div>
+             
+        </center>
+          
+
+            <div class="col-lg-6" style="margin-left:250px">
+       
+                        <div class="card" style="margin-top:20px;margin-bottom:20px;margin-left:50px;margin-right:-200px" >
+                            <div class="card-body" >
+
+                                
+                                <div class="table-responsive" >
+                                {{ knp_pagination_render(pagination, '', {'template': 'pagination.html.twig'}) }}
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>INTITULE</th>
+                                                <th>CONTENU</th> 
+                                                <th>IMAGE</th>
+                                                <th>Nom d'utilisateur </th> 
+                                                <th>Date </th>
+                                                <th>Action</th>                                         
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        
+                                         {% for r in  pagination %}
+                                            <tr>
+                                                <td>{{ r.id }}</td>
+                                                <td class="card-text">{{ r.intitule }}</td>
+                                                <td class="card-text">{{ r.contenu|slice(0, 50) ~ (r.contenu|length > 50 ? '...' : '') }} </td>
+                                                <td class="card-text">
+                                                  <img src="{{ asset(r.image) }}" width="120" height="100" alt="Votre image">
+                                                 </td>
+                                                <td class="card-text">{{ r.idUser.nom }} </td>
+                                                <td class="card-text">{{ r.date|date('d/m/Y') }} </td>
+                                                
+
+                                                <td>
+                                                   <a href='{{path('detail_reclamation' ,{'id':r.id})}}' data-toggle="tooltip" data-placement="top" title="detail"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i></a>
+                                                   <a href='{{path('modifier_Rec' ,{'id':r.id})}}' data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i></a>
+                                                   <a href='{{path('delete_reclamation' ,{'id':r.id})}}' onclick="return confirm('Voulez-vous vraiment supprimer cette réclamation ?')" data-toggle="tooltip" data-placement="top" title="supprimer">
+                                                   <i class="fa fa-close color-danger"></i></a>
+                                                </td>
+                                                  
+                                            </tr>
+                                         {% endfor %}
+                                         
+                                                   
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}

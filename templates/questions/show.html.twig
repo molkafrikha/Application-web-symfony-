@@ -1,0 +1,30 @@
+{% extends 'fixadmin.html.twig' %}
+
+{% block title %}Questions{% endblock %}
+
+{% block body %}
+    <h1>Questions</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>QuestionId</th>
+                <td>{{ question.questionId }}</td>
+            </tr>
+            <tr>
+                <th>Question</th>
+                <td>{{ question.question }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ question.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_questions_index') }}">back to list</a>
+
+    <a href="{{ path('app_questions_edit', {'questionId': question.questionId}) }}">edit</a>
+
+    {{ include('questions/_delete_form.html.twig') }}
+{% endblock %}

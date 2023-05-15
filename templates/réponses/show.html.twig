@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réponses{% endblock %}
+
+{% block body %}
+    <h1>Réponses</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>RéponsesId</th>
+                <td>{{ r_ponse.réponsesId }}</td>
+            </tr>
+            <tr>
+                <th>Réponse</th>
+                <td>{{ r_ponse.réponse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_r_ponses_index') }}">back to list</a>
+
+    <a href="{{ path('app_r_ponses_edit', {'réponsesId': r_ponse.réponsesId}) }}">edit</a>
+
+    {{ include('réponses/_delete_form.html.twig') }}
+{% endblock %}

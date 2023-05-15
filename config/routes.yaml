@@ -1,0 +1,5 @@
+index:
+    path: /
+    controller: App\Controller\SecurityController::login
+openweathermap:
+    resource: '../config/routes/openweathermap.yaml'

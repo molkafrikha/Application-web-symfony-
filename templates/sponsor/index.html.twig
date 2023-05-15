@@ -1,0 +1,104 @@
+{% extends 'fixadmin.html.twig' %}
+{% block content %}
+    <div class="content-body" style="margin-left:-5px">
+        <center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Liste des Sponsors
+                <a href='{{path('add_sponsor')}}' class="btn mb-1 btn-info float-right" style="margin-right: 20px"><i class="mdi mdi-plus"></i><span> Ajouter un sponsor</span></a>
+            </h3></center>
+
+        <div class="card" style="margin-left: 20px;margin-right: 20px">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table header-border" id="tableac">
+                       <!-- <input class="form-control form-control-sm ml-10 w-30" id="search" type="text" placeholder="Search" aria-label="Search">-->
+                        <input class="form-control form-control-navbar" id="searchInput" onkeyup="searchTable()" type="search" placeholder="Search" aria-label="Search">
+                        <thead>
+                        <tr>
+
+                            <th>Nom du sponsor</th>
+                            <th>Email</th>
+                            <th>Adresse</th>
+                            <th>Montant</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="all">
+                        {% for s in sponsors %}
+                        <tr class="table-active">
+
+                            <td>{{ s.sponsor }}</td>
+                            <td>{{ s.email }}</td>
+                            <td>{{ s.adresse }}</td>
+                            <td><center><span class="label gradient-4 btn-rounded">{{ s.montant }} DT</span></center> </td>
+                            <td>
+                                <a href='{{path('modif_sponsor',{'id':s.id})}}' data-toggle="tooltip" data-placement="top"  data-original-title="Mofifier"><i class="fa fa-pencil color-muted m-r-5"></i> </a>
+                                <a href='{{path('delete_sponsor',{'id':s.id})}}' data-toggle="tooltip" data-placement="top"  data-original-title="Supprimer"><i class="fa fa-trash color-danger"></i></a>
+                                <a href='{{path('detail_sponsor',{'id':s.id})}}' data-toggle="tooltip" data-placement="top"  data-original-title="Détails"><i class="fa fa-info color-danger"></i></a>
+                            </td>
+                        </tr>
+
+{% endfor %}
+                        </tbody>
+
+                    </table>
+
+                   <!-- <canvas id="myChart" width="400" height="400"></canvas>-->
+                    <a href="{{ path('generate_pdf') }}" target="_blank">Générer le PDF</a><br>
+                    <a href="{{ path('generate_csv') }}" target="_blank">Générer le fichier CSV</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+
+    <script>
+        /*var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {{ chart|json_encode|raw }});*/
+        function searchTable() {
+            var query = document.getElementById("searchInput").value;
+            $.ajax({
+                url: "/search",
+                type: "GET",
+                data: {query: query},
+                success: function(data) {
+                    var sponsors = JSON.parse(data);
+                    var row1 = "<tr>\n" +
+                        "\n" +
+                        "                            <th>Nom du sponsor</th>\n" +
+                        "                            <th>Email</th>\n" +
+                        "                            <th>Adresse</th>\n" +
+                        "                            <th>Montant</th>\n" +
+                        "                            <th>Actions</th>\n" +
+                        "                        </tr>"   ;
+                    $("#tableac tbody").empty();
+                    $("#tableac thead").empty();
+                    $("#tableac thead").append(row1);
+                    for (var i = 0; i < sponsors.length; i++) {
+                        var s = sponsors[i];
+
+
+                        var row2 = "<tr class=\"table-active\">" +
+
+                            "<td>" + s.sponsor + "</td>" +
+                            "<td>" + s.email + "</td>" +
+                            "<td>" + s.adresse + "</td>" +
+                            "<td> <center><span class=\"label gradient-4 btn-rounded\">" + s.montant+ "</span></center></td>" +
+                            "<td> <a href=\"/modifSponsor/"+s.id+"\" data-toggle=\"tooltip\" data-placement=\"top\"  data-original-title=\"Mofifier\"><i class=\"fa fa-pencil color-muted m-r-5\"></i> </a>\n" +
+                                 "<a href=\" /deletesponsor/"+s.id+" \" data-toggle=\"tooltip\" data-placement=\"top\"  data-original-title=\"Supprimer\"><i class=\"fa fa-trash color-danger\"></i></a>"+
+                                 "<a href=\" /sponsordetail/"+s.id+" \" data-toggle=\"tooltip\" data-placement=\"top\"  data-original-title=\"Détails\"><i class=\"fa fa-info color-danger\"></i></a>"+
+                            "</td>" +
+                            "</tr>";
+
+                        $("#tableac tbody").append(row2);
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $("#searchInput").on("input", searchTable);
+        });
+    </script>
+
+{% endblock %}

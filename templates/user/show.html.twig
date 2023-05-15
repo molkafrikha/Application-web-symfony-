@@ -1,0 +1,116 @@
+{% extends 'fixadmin.html.twig' %}
+{% block content %}
+
+<div class="card">
+                <div class="card-body">
+                    <div class="dash-app">
+            <header class="dash-toolbar">
+
+
+
+                <section class="s-crossfit">
+                    <div class="container">
+
+                        <div class="sidebar-search">
+
+                            <div class="input-group custom-search-form">
+
+                                <input type="text" id="search" class="form-control" placeholder="Recherche">
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+
+                        <div class="row" id="search">
+
+                        </div>
+
+                    </div>
+                </section>
+                <script src="{{ asset('assets/js/jquery.js') }}"></script>
+                <script
+                        src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js')}}">
+                </script>
+                <script>
+                    $( document ).ready(function() {
+                        var currentRequest = null;
+                        $("#search").keyup(function(e){
+                            /* La variable value va prendre la valeur insérer dans le champ de texte
+                            afin d’effectuer la recherche */
+                            var value = $(this).val();
+                            if(currentRequest != null) {
+                                currentRequest.abort();
+                            }
+                            /* Ajax est lancé lors du remplissage du champ texte dont l’id est
+                            « search » pour faire la recherche */
+                            currentRequest = $.ajax({
+                                url : "{{ path('userajax') }}",
+                                type : 'GET',
+                                data: {
+                                    'searchValue' : value
+                                },
+                                success : function(retour)
+                                {
+                                    $('#all').html(retour);
+                                },
+                            });
+                            return false;
+                        });
+                    });
+                </script>
+    <h1>Liste des utilisateurs</h1>
+
+    <table class="table table-striped">
+                    <thead>
+                    <tr>     
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Roles</th>
+                        <th>Age</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            
+                            <td>{{ user.nom }}</td>
+                            <td>{{ user.prenom }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.password}}</td>
+                            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                            <td>{{ user.age}}</td>
+                            
+                           
+                            <td>
+                                <a class="btn btn-danger" href="{{ path('remove_user',{'id':user.id}) }}">Supprimer</a>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <li>
+                    <a href="{{path('app_statistique')}}" aria-expanded="false">
+                        <i class="icon-speedometer menu-icon"></i><span class="nav-text">Statistique utilisateurs</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="{{path('app_maps')}}" aria-expanded="false">
+                        <i class="icon-speedometer menu-icon"></i><span class="nav-text">Position utilisateurs</span>
+                    </a>
+
+                </li> <br>
+                <td>
+                                <a class="btn btn-danger" href="{{ path('admin') }}">Go back</a>
+                            </td>
+
+    
+
+
+
+
+    {% endblock %}
+

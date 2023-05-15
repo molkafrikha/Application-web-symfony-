@@ -1,0 +1,114 @@
+{% extends "fix.html.twig" %}
+{% block content %}
+    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+    <div class="container-fluid">
+        <center style="margin-top:20px;margin-bottom:20px"><h3 class="d-inline" style="color:#7571f9;">Ajouter une offre de covoiturage</h3></center>
+        <div class="row justify-content-center" style="margin-left:150px;margin-right:150px">
+            <div class="col-lg-12" style="margin-bottom: 50px">
+                <div class="card" >
+                    <div class="card-body">
+                        <div class="form-validation">
+                            <form class="form-valide" style="">
+                                <div class="form-group row">
+
+                                    <label class="col-lg-4 col-form-label" >{{ form_label(form.matricule) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.matricule, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.matricule) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+
+                                    <label class="col-lg-4 col-form-label" >{{ form_label(form.marque) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.marque, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.marque) }}
+                                    </div>
+
+                                    <label style="margin-top:20px" class="col-lg-4 col-form-label" >{{ form_label(form.dated) }} <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div  class="col-lg-6" style="margin-top:20px">
+                                        {{ form_widget(form.dated, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+
+                                    <div class="col-lg-6" style="margin-top:20px">
+                                        <label class="col-lg-4 col-form-label">{{ form_label(form.lieud) }}<span class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            {{ form_widget(form.lieud, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_errors(form.lieud) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6" style="margin-top:-5px">
+                                        <label style="margin-top:20px" class="col-lg-4 col-form-label">{{ form_label(form.lieua) }}<span class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            {{ form_widget(form.lieua, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_errors(form.lieua) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6" style="margin-top:-5px">
+                                        <label style="margin-top:20px" class="col-lg-4 col-form-label">{{ form_label(form.dispo) }}<span class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            {{ form_widget(form.dispo, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_errors(form.dispo) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6" style="margin-top:-5px">
+                                        <label style="margin-top:20px" class="col-lg-4 col-form-label">{{ form_label(form.nbplace) }}<span class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            {{ form_widget(form.nbplace, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_errors(form.nbplace) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6" style="margin-top:-5px">
+                                        <label style="margin-top:20px" class="col-lg-4 col-form-label">{{ form_label(form.numtel) }}<span class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            {{ form_widget(form.numtel, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_errors(form.numtel) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6" style="margin-top:-5px">
+                                        <label style="margin-top:20px" class="col-lg-4 col-form-label">{{ form_label(form.distance) }}<span class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            {{ form_widget(form.distance, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_errors(form.distance) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6" style="margin-top:-5px">
+                                        <label style="margin-top:20px" class="col-lg-4 col-form-label">{{ form_label(form.idUser) }}<span class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            {{ form_widget(form.idUser, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_errors(form.idUser) }}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                {{ form_rest(form) }}
+                                <div class="form-group row">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{ form_end(form) }}
+{% endblock %}
